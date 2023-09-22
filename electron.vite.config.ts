@@ -39,5 +39,17 @@ export default defineConfig({
         '@/': resolve(__dirname, 'src/')
       },
     },
+    css: {
+      modules: {
+        localsConvention: 'camelCaseOnly',
+        generateScopedName: '[local]__[hash:base64:5]',
+      },
+      postcss: undefined,
+      preprocessorOptions: {
+        less: {
+          javascriptEnabled: true, // 是否启用 JavaScript 表达式
+        },
+      }
+    }
   }
 })

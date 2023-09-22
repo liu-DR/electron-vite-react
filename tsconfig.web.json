@@ -2,8 +2,8 @@
   "extends": "@electron-toolkit/tsconfig/tsconfig.web.json",
   "include": [
     "src/env.d.ts",
-    "src/renderer/src/**/*",
-    "src/renderer/src/**/*.tsx",
+    "src/**/*",
+    "src/**/*.tsx",
     "electron/preload/*.d.ts"
 , "src/components", "src/App.tsx", "src/main.tsx"  ],
   "compilerOptions": {
