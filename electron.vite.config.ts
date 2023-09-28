@@ -32,12 +32,13 @@ export default defineConfig({
         }
       }
     },
-    plugins: [react()],
+    plugins: [
+      react()
+    ],
     resolve: {
       alias: {
-        '@/assets': resolve(__dirname, 'src/assets'),
-        '@/': resolve(__dirname, 'src/')
-      },
+        '@': resolve(__dirname, 'src')
+      }
     },
     css: {
       modules: {

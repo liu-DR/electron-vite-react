@@ -1,13 +1,12 @@
 import styles from './index.module.less'
 
-
-
 const Login = () => {
 
-    console.log(styles,'styles');
-
     return (
-        <div className={styles.loginContain}>Login</div>
+        <div className={styles.loginContain}>
+            欢迎来到
+            <h2>Electron React</h2>
+        </div>
     )
 }
 
