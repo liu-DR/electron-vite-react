@@ -2,18 +2,28 @@
   "files": [],
   "references": [{ "path": "./tsconfig.node.json" }, { "path": "./tsconfig.web.json" }],
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-    "jsx": "react-jsx",
-    "lib": ["dom", "esnext"],
-    "baseUrl": "./",
+    "target": "ESNext",
+    "lib": ["DOM", "ESNext", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": false,
+    "allowJs": false,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": false,
+    "moduleResolution": "Node",
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "noImplicitAny": false,
+    "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],
       "@renderer/*": [
         "src/*"
       ]
-    }
+    },
+    "skipDefaultLibCheck": true,
   }
 }

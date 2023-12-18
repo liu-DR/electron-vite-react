@@ -7,6 +7,6 @@
     "electron/preload/*.d.ts",
     "src/App.tsx",
     "src/main.tsx",
-    "custom.d.ts"
+    "src/**/*.module.less",
   ],
 }

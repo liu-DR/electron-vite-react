@@ -1,9 +1,9 @@
 import { Navigate, useRoutes } from "react-router-dom";
-// import Login from './login/Login'
-// import route from './routes'
 import { RouteObject } from './data'
-import Login from '../pages/Login'
+// import route from './routes'
 
+import Login from '../components/Login'
+import Home from '../pages/Home'
 
 const rootRouter: RouteObject[] = [
     {
@@ -14,6 +14,11 @@ const rootRouter: RouteObject[] = [
         path: '/login',
         element: <Login />,
         key: 'login'
+    },
+    {
+        path: '/home',
+        element: <Home />,
+        key: 'Home'
     },
     // ...route
 ]

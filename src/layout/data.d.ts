@@ -9,7 +9,7 @@ export interface MetaProps {
 export interface RouteObject {
 	caseSensitive?: boolean;
 	children?: RouteObject[];
-	element?: React.ReactNode;
+	element?: React.ReactNode | any;
 	index?: false;
 	path?: string;
 	meta?: MetaProps;

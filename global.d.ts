@@ -22,3 +22,8 @@ declare module '*.svg' {
     const value: React.FunctionComponent<React.SVGAttributes<SVGElement>>;
     export default value;
 }
+
+declare module '*.less' {
+    const styles: { [key: string]: string };
+    export default styles;
+}

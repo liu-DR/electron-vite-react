@@ -1,4 +1,4 @@
-import { resolve } from 'path'
+import path from 'path'
 import { defineConfig, externalizeDepsPlugin } from 'electron-vite'
 import react from '@vitejs/plugin-react'
 
@@ -8,7 +8,7 @@ export default defineConfig({
     build: {
       rollupOptions: {
         input: {
-          index: resolve(__dirname, 'electron/main/index.ts')
+          index: path.resolve(__dirname, 'electron/main/index.ts')
         }
       }
     }
@@ -18,39 +18,48 @@ export default defineConfig({
     build: {
       rollupOptions: {
         input: {
-          index: resolve(__dirname, 'electron/preload/index.ts')
+          index: path.resolve(__dirname, 'electron/preload/index.ts')
         }
       }
     }
   },
   renderer: {
     root: '.',
+    server: {
+      port: 9000,
+      fs: {
+          strict: false
+      },
+      // open: true  // 是否自动打开浏览器
+    },
     build: {
+      outDir: 'dist',
       rollupOptions: {
         input: {
-          index: resolve(__dirname, 'index.html')
+          index: path.resolve(__dirname, 'index.html')
+        }
+      },
+      terserOptions: {
+        compress: {
+            drop_console: false,
+            drop_debugger: false
         }
       }
     },
-    plugins: [
-      react()
-    ],
+    plugins: [react()],
     resolve: {
       alias: {
-        '@': resolve(__dirname, 'src')
-      }
+        // 设置别名
+        "@": path.resolve(__dirname, 'src')
+      },
     },
     css: {
-      modules: {
-        localsConvention: 'camelCaseOnly',
-        generateScopedName: '[local]__[hash:base64:5]',
-      },
-      postcss: undefined,
+      // 预处理器
       preprocessorOptions: {
         less: {
-          javascriptEnabled: true, // 是否启用 JavaScript 表达式
-        },
+            math: 'always'
+        }
       }
-    }
+    },
   }
 })
