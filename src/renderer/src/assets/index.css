@@ -1,6 +1,7 @@
-body {
+html, body {
   display: flex;
   flex-direction: column;
+  height: 100vh;
   font-family:
     Roboto,
     -apple-system,
@@ -13,7 +14,10 @@ body {
     'Open Sans',
     sans-serif;
   color: #86a5b1;
-  background-color: #2f3241;
+}
+
+#root {
+  height: inherit;
 }
 
 * {
