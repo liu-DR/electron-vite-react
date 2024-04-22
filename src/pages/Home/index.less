@@ -1,0 +1,95 @@
+.content {
+    min-height: 200px;
+    text-align: 'center';
+    border: 1px solid #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.planetRotation {
+    background: #101227;
+    height: 400px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+}
+.planet {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    box-shadow: 
+        0 0 54px 0 #fed84c80,
+        0 0 106px 43px #e8a55233,
+        0 0 80px 86px #ff4d4d1a;
+    position: relative;
+}
+.satellite, .satellite::after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+.satellite {
+    background: #ffedd1;
+    box-shadow: -2em 0 5em -1em #fff;
+    overflow: hidden;
+    transition: 250ms;
+    left: 100px;
+    transform: rotate(20deg);
+    animation: round 5s infinite ease-in-out;
+}
+.satellite::after {
+    background: #262938;
+    width: 30px;
+    left: 15px;
+    box-shadow: 0 0 4px 4px #232938;
+    animation: shadow 5s infinite ease-in-out;
+}
+@keyframes shadow {
+    0% {
+        width: 0;
+        left: -8px;
+    }
+    50% {
+        width: 30px;
+        left: 0;
+    }
+    100% {
+        width: 30px;
+        left: 38px;
+    }
+}
+@keyframes round {
+    0%,
+    100% {
+        top: 60px;
+        left:220px;
+        box-shadow: -21px 0 54px 8px #c6836466;
+        z-index: 2;
+    }
+    25% {
+        box-shadow: 0 0 3em 1em #412104b5;
+    }
+    25% {
+        box-shadow: 0 0 3em 1em black;
+    }
+    48% {
+        z-index: 2;
+    }
+    50% {
+        top: -60px;
+        left: -60px;
+        box-shadow: 2em 0 5em 0.5em #845a4682;
+        // z-index: -1;
+    }
+    // 99% {
+    //     z-index: -1;
+    // }
+}
