@@ -2,7 +2,7 @@ import { Navigate, useRoutes } from 'react-router-dom'
 import { RouteObject } from './data'
 // import route from './routes'
 
-import Login from '../components/Login'
+import Login from '../pages/Login'
 import Home from '../pages/Home'
 
 const rootRouter: RouteObject[] = [

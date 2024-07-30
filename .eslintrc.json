@@ -1,0 +1,22 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:prettier/recommended",
+    "plugin:react/recommended",
+    "plugin:react/jsx-runtime",
+    "@electron-toolkit/eslint-config-ts/recommended",
+    "@electron-toolkit/eslint-config-prettier"
+  ],
+  "rules": {
+    "prettier/prettier": ["error"],
+    //不用手动引入react
+    "react/react-in-jsx-scope": "off",
+    //使用any报错
+    "@typescript-eslint/no-explicit-any": "error",
+  },
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  }
+}
