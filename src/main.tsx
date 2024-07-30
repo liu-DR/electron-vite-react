@@ -6,7 +6,7 @@ import App from './App'
 // import 'antd/dist/antd.css'
 
 if (import.meta.hot) {
-  import.meta.hot.accept();
+  import.meta.hot.accept()
 }
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

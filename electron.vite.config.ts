@@ -28,8 +28,8 @@ export default defineConfig({
     server: {
       port: 9000,
       fs: {
-          strict: false
-      },
+        strict: false
+      }
       // open: true  // 是否自动打开浏览器
     },
     build: {
@@ -41,8 +41,8 @@ export default defineConfig({
       },
       terserOptions: {
         compress: {
-            drop_console: false,
-            drop_debugger: false
+          drop_console: false,
+          drop_debugger: false
         }
       }
     },
@@ -50,16 +50,16 @@ export default defineConfig({
     resolve: {
       alias: {
         // 设置别名
-        "@": path.resolve(__dirname, 'src')
-      },
+        '@': path.resolve(__dirname, 'src')
+      }
     },
     css: {
       // 预处理器
       preprocessorOptions: {
         less: {
-            math: 'always'
+          math: 'always'
         }
       }
-    },
+    }
   }
 })
