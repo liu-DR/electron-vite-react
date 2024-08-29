@@ -1,36 +1,36 @@
-import './index.less'
-import React, { useEffect, useState } from 'react'
-import { Modal, Button, message, Form, Cascader } from 'antd'
-import { useNavigate } from 'react-router-dom'
+import './index.less';
+import React, { useEffect, useState } from 'react';
+import { Modal, Button, message, Form, Cascader } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 const opt = [
   {
     label: 'Bamboo',
     value: 'bamboo',
-    isLeaf: false
-  }
-]
+    isLeaf: false,
+  },
+];
 
 //注释
 const HomeIndex = () => {
-  const navigate = useNavigate()
-  const [form] = Form.useForm()
-  const { SHOW_CHILD } = Cascader
-  const [modal, contextHolder] = Modal.useModal()
+  const navigate = useNavigate();
+  const [form] = Form.useForm();
+  const { SHOW_CHILD } = Cascader;
+  const [modal, contextHolder] = Modal.useModal();
   const [values, setValues] = useState({
     cascader: [
       ['bamboo', 'fish'],
-      ['bamboo', 'cards']
-    ]
-  })
-  const [options, setOptions] = useState(opt)
+      ['bamboo', 'cards'],
+    ],
+  });
+  const [options, setOptions] = useState(opt);
 
   const countDown = (time: number) => {
-    let secondsToGo = 5
-    let intervalTime = time
-    let timer
-    let instance
-    let timeOUt
+    let secondsToGo = 5;
+    let intervalTime = time;
+    let timer;
+    let instance;
+    let timeOUt;
 
     timeOUt = setTimeout(() => {
       instance = modal.warning({
@@ -38,60 +38,60 @@ const HomeIndex = () => {
         content: `This modal will be destroyed after secondsToGo: ${secondsToGo} intervalTime: ${intervalTime} second.`,
         okText: '确认',
         onOk: () => {
-          alert('关闭倒计时弹窗')
-          instance.destroy()
-        }
-      })
-    }, intervalTime * 1000)
+          alert('关闭倒计时弹窗');
+          instance.destroy();
+        },
+      });
+    }, intervalTime * 1000);
     if (!timer) {
       timer = setInterval(() => {
         if (intervalTime > 0) {
-          intervalTime -= 1
+          intervalTime -= 1;
         } else {
-          clearTimeout(timeOUt)
-          secondsToGo -= 1
+          clearTimeout(timeOUt);
+          secondsToGo -= 1;
           instance.update({
-            content: `This modal will be destroyed after secondsToGo: ${secondsToGo} intervalTime: ${intervalTime} second.`
-          })
+            content: `This modal will be destroyed after secondsToGo: ${secondsToGo} intervalTime: ${intervalTime} second.`,
+          });
           setTimeout(() => {
-            clearInterval(timer)
-            instance.destroy()
-          }, secondsToGo * 1000)
+            clearInterval(timer);
+            instance.destroy();
+          }, secondsToGo * 1000);
 
           if (!secondsToGo) {
-            clearInterval(timer)
-            message.success('关闭成功')
+            clearInterval(timer);
+            message.success('关闭成功');
           }
         }
-      }, 1000)
+      }, 1000);
     }
-  }
+  };
 
   const loadData = (selectedOptions) => {
-    const targetOption = selectedOptions[selectedOptions.length - 1]
+    const targetOption = selectedOptions[selectedOptions.length - 1];
     setTimeout(() => {
       targetOption.children = [
         {
           label: 'Toy Fish',
-          value: 'fish'
+          value: 'fish',
         },
         {
           label: 'Toy Cards',
-          value: 'cards'
+          value: 'cards',
         },
         {
           label: 'Toy Bird',
-          value: 'bird'
-        }
-      ]
-      setOptions([...options])
-    }, 1000)
-  }
+          value: 'bird',
+        },
+      ];
+      setOptions([...options]);
+    }, 1000);
+  };
 
   useEffect(() => {
-    if (!form) return
-    loadData(options)
-  }, [form])
+    if (!form) return;
+    loadData(options);
+  }, [form]);
 
   return (
     <div>
@@ -100,7 +100,10 @@ const HomeIndex = () => {
         <Button onClick={() => countDown(10)}>Open modal to close in 5s</Button>
       </div>
       <h1 style={{ textAlign: 'center' }}>星球旋转</h1>
-      <div className={'planetRotation'} style={{ textAlign: 'center', marginTop: 15 }}>
+      <div
+        className={'planetRotation'}
+        style={{ textAlign: 'center', marginTop: 15 }}
+      >
         <div className={'planet'}>
           <div className={'satellite'}></div>
         </div>
@@ -124,7 +127,7 @@ const HomeIndex = () => {
         前往登录页
       </Button>
     </div>
-  )
-}
+  );
+};
 
-export default HomeIndex
+export default HomeIndex;

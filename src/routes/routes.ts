@@ -1,16 +1,16 @@
-import { lazy } from 'react'
-import { routesType } from './data'
+import { lazy } from 'react';
+import { routesType } from './data';
 
-const Home = lazy(() => import('../pages/Home'))
-const Login = lazy(() => import('../pages/Login'))
+const Home = lazy(() => import('../pages/Home'));
+const Login = lazy(() => import('../pages/Login'));
 
 export const routes: Array<routesType> = [
   {
     path: '/',
-    element: Home
+    element: Home,
   },
   {
     path: '/login',
-    element: Login
-  }
-]
+    element: Login,
+  },
+];

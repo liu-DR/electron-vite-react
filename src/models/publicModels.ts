@@ -1,21 +1,21 @@
-import { useRequest } from 'ahooks'
-import { getAvatarService } from '../service/publicService'
+import { useRequest } from 'ahooks';
+import { getAvatarService } from '../service/publicService';
 
 const publicModels = () => {
   // 获取头像信息
   const {
     run: getAvatar,
     data: avatarImger,
-    loading: getAvatarLoading
+    loading: getAvatarLoading,
   } = useRequest(getAvatarService, {
-    manual: true
-  })
+    manual: true,
+  });
 
   return {
     getAvatar,
     avatarImger,
-    getAvatarLoading
-  }
-}
+    getAvatarLoading,
+  };
+};
 
-export default publicModels
+export default publicModels;

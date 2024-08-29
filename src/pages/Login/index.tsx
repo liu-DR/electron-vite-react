@@ -1,9 +1,9 @@
-import './index.less'
-import { Button } from 'antd'
-import { useNavigate } from 'react-router-dom'
+import './index.less';
+import { Button } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <div className="loginContain">
@@ -13,7 +13,7 @@ const Login = () => {
         前往首页
       </Button>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
