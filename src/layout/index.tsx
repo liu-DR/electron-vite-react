@@ -3,7 +3,8 @@ import { RouteObject } from './data'
 // import route from './routes'
 
 import Login from '../pages/Login'
-import Home from '../pages/Home'
+// import Home from '../pages/Home'
+import Home from '@/pages/Home'
 
 const rootRouter: RouteObject[] = [
   {

@@ -7,8 +7,8 @@ let mainWindow: any
 
 function createWindow(): void {
   mainWindow = new BrowserWindow({
-    width: 1400,
-    height: 800,
+    width: 1280,
+    height: 700,
     show: false,
     autoHideMenuBar: true,
     // titleBarStyle: 'hidden',  // 控制标题栏显示隐藏
@@ -45,7 +45,7 @@ function createWindow(): void {
     }
   })
 
-  mainWindow.webContents.setWindowOpenHandler((details) => {
+  mainWindow.webContents.setWindowOpenHandler((details: { url: string }) => {
     shell.openExternal(details.url)
     return { action: 'deny' }
   })

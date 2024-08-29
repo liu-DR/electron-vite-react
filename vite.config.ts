@@ -26,9 +26,9 @@ export default defineConfig({
   resolve: {
     alias: {
       // 设置别名
-      '@': path.resolve(__dirname, 'src')
+      '@/': path.resolve(__dirname, 'src/')
     },
-    extensions: ['.js', '.ts', '.jsx', '.tsx', '.json']
+    extensions: ['.tsx', '.jsx', '.ts', '.js', '.json']
   },
   // css模块配置
   css: {
