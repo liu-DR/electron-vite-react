@@ -207,3 +207,22 @@ a:hover {
     width: 100%;
   }
 }
+
+/* 用于设置自定义可拖动区域 */
+#draggableArea {
+  -webkit-app-region: drag;
+  background-color: bisque;
+  height: 64px;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+
+  button {
+    -webkit-app-region: no-drag;
+  }
+
+  .titlebar {
+    user-select: none;
+    -webkit-app-region: drag;
+  }
+}

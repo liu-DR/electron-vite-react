@@ -24,6 +24,13 @@
       "@@/*": ["electron/*"]
     },
   },
-  "include": ["**/*.tsx", "**/*.jsx", "**/*.ts", "**/*.js",],
-  "exclude": ["node_modules", "build", "out"]
+  "include": [
+    "**/*.tsx",
+    "**/*.jsx",
+    "**/*.ts",
+    "**/*.js",
+    "src/typings/*.d.ts",
+    "src/typings/global.d.ts"
+  ],
+  "exclude": ["node_modules", "build", "out"],
 }
