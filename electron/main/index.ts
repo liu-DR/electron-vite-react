@@ -23,6 +23,7 @@ function createWindow(): void {
     frame: false,
     center: true,
     icon: resolve(__dirname, '../../src/assets/3.jpg'),
+    titleBarStyle: 'hidden',
     webPreferences: {
       // 开启node支持
       nodeIntegration: true,
@@ -32,6 +33,11 @@ function createWindow(): void {
   });
 
   globalContent.mainWindow = mainWindow;
+
+  /** 区分mac和window环境的标题栏样式 */
+  // if(process.platform !== 'darwin') {
+
+  // }
 
   // ctrl + F12 打开控制台
   globalShortcut.register('CommandOrControl+F12', () => {
@@ -43,7 +49,7 @@ function createWindow(): void {
     }
   });
 
-  // 最大化打开窗口
+  /** 窗口准备好后执行 */
   mainWindow.on('ready-to-show', () => {
     if (!mainWindow) {
       throw new Error('"mainWindow" is not defined');
@@ -51,25 +57,24 @@ function createWindow(): void {
     if (process.env.START_MINIMIZED) {
       mainWindow.minimize();
     } else {
+      // 最大化打开窗口
       // mainWindow.maximize();	// 暂时无需最大化打开窗口
       mainWindow.show();
     }
+
+    /** 开发环境启动时默认打开控制台 */
+    if(!app.isPackaged) {
+      mainWindow.webContents.toggleDevTools();
+    }
   });
 
-  mainWindow.webContents.setWindowOpenHandler((details: { url: string }) => {
-    shell.openExternal(details.url);
-    return { action: 'deny' };
-  });
 
-  const openModel = (args: any) => { 
-    console.log(args, 'args');
-    mainWindow.webContents.send('toRender', args);
-  }
 
-  /** 注册 */
+
+  /** 监听渲染进程通信 */
   ipcMain.on('toMain', (event, args) => {
-    console.log(event, args, 'toMain');
-    openModel(args);
+    console.log('Received message from renderer:', args);
+    mainWindow.webContents.send('toRender', '2222222');
   });
 
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {

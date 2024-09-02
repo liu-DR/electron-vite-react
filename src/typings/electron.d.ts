@@ -11,6 +11,9 @@ declare global {
               openPath: (path: string) => void;
           }
       };
+      electronReturnVal: {
+        onUpdateValue: (func: (event, args) => void) => void
+      }
   }
 };
 

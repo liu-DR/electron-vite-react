@@ -6,14 +6,12 @@ import { useNavigate } from 'react-router-dom';
 const Login = () => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (window.electron) {
-      window.electron.ipcRenderer.on('toRender', (args) => {
-        console.log(args, 'args');
-      });
-    }
-  }, []);
 
+  useEffect(() => {
+    window.electronReturnVal?.onUpdateValue((event, args) => {
+      console.log(event, args, 'event, args');
+    })
+  }, []);
   return (
     <div className="loginContain">
       <div id='draggableArea'></div>
