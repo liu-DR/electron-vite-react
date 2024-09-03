@@ -23,6 +23,9 @@ const Login = () => {
       <Button onClick={() => {
         window.electron.ipcRenderer.sendMessage('toMain', '测试通信')
       }}>打开新窗口</Button>
+      <Button onClick={() => {
+        window.electron.ipcRenderer.sendMessage('setMinWindow', '最小化窗口')
+      }}>最小化</Button>
     </div>
   );
 };

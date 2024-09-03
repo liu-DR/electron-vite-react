@@ -10,6 +10,7 @@ import type { BrowserWindow as BrowserWindowType } from 'electron'
 import { join, resolve } from 'path';
 import { electronApp, optimizer, is } from '@electron-toolkit/utils';
 import MenuItem from './menu';
+import { initTray } from '../preload/systemTray';
 
 let mainWindow: BrowserWindowType;
 let globalContent: any = global;
@@ -22,8 +23,8 @@ function createWindow(): void {
     autoHideMenuBar: true,
     frame: false,
     center: true,
-    icon: resolve(__dirname, '../../src/assets/3.jpg'),
-    titleBarStyle: 'hidden',
+    icon: resolve(__dirname, '../assets/trayIcon.jpg'),
+    // titleBarStyle: 'hidden',
     webPreferences: {
       // 开启node支持
       nodeIntegration: true,
@@ -33,11 +34,6 @@ function createWindow(): void {
   });
 
   globalContent.mainWindow = mainWindow;
-
-  /** 区分mac和window环境的标题栏样式 */
-  // if(process.platform !== 'darwin') {
-
-  // }
 
   // ctrl + F12 打开控制台
   globalShortcut.register('CommandOrControl+F12', () => {
@@ -68,13 +64,15 @@ function createWindow(): void {
     }
   });
 
-
-
-
   /** 监听渲染进程通信 */
   ipcMain.on('toMain', (event, args) => {
     console.log('Received message from renderer:', args);
     mainWindow.webContents.send('toRender', '2222222');
+  });
+
+  /** 最小化窗口 */
+  ipcMain.on('setMinWindow', () => {
+    mainWindow.minimize();
   });
 
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
@@ -92,6 +90,9 @@ app.whenReady().then(() => {
 
   createWindow();
 
+  /** 创建系统托盘需要再应用记载之后 */
+  initTray();
+
   /** 单击应用图标时，如果没有创建窗口时，重新创建一个窗口 */
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
@@ -104,3 +105,5 @@ app.on('window-all-closed', () => {
     app.quit();
   }
 });
+
+export { mainWindow }
