@@ -6,7 +6,7 @@ import {
   globalShortcut,
   ipcMain,
 } from 'electron';
-import type { BrowserWindow as BrowserWindowType } from 'electron'
+import type { BrowserWindow as BrowserWindowType } from 'electron';
 import { join, resolve } from 'path';
 import { electronApp, optimizer, is } from '@electron-toolkit/utils';
 import MenuItem from './menu';
@@ -35,8 +35,8 @@ function createWindow(): void {
 
   globalContent.mainWindow = mainWindow;
 
-  // ctrl + F12 打开控制台
-  globalShortcut.register('CommandOrControl+F12', () => {
+  // F12 打开控制台
+  globalShortcut.register('F12', () => {
     /** 生产环境不允许打开控制台 */
     if (app.isPackaged) return;
     const currentWindow = BrowserWindow.getFocusedWindow();
@@ -59,9 +59,19 @@ function createWindow(): void {
     }
 
     /** 开发环境启动时默认打开控制台 */
-    if(!app.isPackaged) {
+    if (!app.isPackaged) {
       mainWindow.webContents.toggleDevTools();
     }
+  });
+
+  /** 监听渲染进程通信 */
+  ipcMain.on('toMain', (event, args) => {
+    mainWindow.webContents.send('toRender', '2222222');
+  });
+
+  /** 最小化窗口 */
+  ipcMain.on('setMinWindow', () => {
+    mainWindow.minimize();
   });
 
   /** 监听渲染进程通信 */
@@ -106,4 +116,4 @@ app.on('window-all-closed', () => {
   }
 });
 
-export { mainWindow }
+export { mainWindow };
