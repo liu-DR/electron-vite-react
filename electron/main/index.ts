@@ -6,7 +6,7 @@ import {
   globalShortcut,
   ipcMain,
 } from 'electron';
-import type { BrowserWindow as BrowserWindowType } from 'electron'
+import type { BrowserWindow as BrowserWindowType } from 'electron';
 import { join, resolve } from 'path';
 import { electronApp, optimizer, is } from '@electron-toolkit/utils';
 import MenuItem from './menu';
@@ -23,7 +23,7 @@ function createWindow(): void {
     autoHideMenuBar: true,
     frame: false,
     center: true,
-    icon: resolve(__dirname, '../assets/trayIcon.jpg'),
+    icon: resolve(__dirname, '../../public/trayIcon.jpg'),
     // titleBarStyle: 'hidden',
     webPreferences: {
       // 开启node支持
@@ -59,7 +59,7 @@ function createWindow(): void {
     }
 
     /** 开发环境启动时默认打开控制台 */
-    if(!app.isPackaged) {
+    if (!app.isPackaged) {
       mainWindow.webContents.toggleDevTools();
     }
   });
@@ -106,4 +106,4 @@ app.on('window-all-closed', () => {
   }
 });
 
-export { mainWindow }
+export { mainWindow };

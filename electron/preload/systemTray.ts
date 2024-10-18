@@ -5,19 +5,17 @@ import { mainWindow } from '../main';
 
 let tray = null;
 /** 托盘图标 */
-const trayIcon = resolve(__dirname, '../assets/trayIcon.jpg');
+const trayIcon = resolve(__dirname, '../../public/trayIcon.jpg');
 
-function initTray() { 
-    tray = new Tray(trayIcon);
-    
-    /** 创建托盘trayMenu */
-    const trayMenu = Menu.buildFromTemplate([
-        { label: 'Item1', type: 'radio' }
-    ]);
+function initTray() {
+  tray = new Tray(trayIcon);
 
-    tray.setToolTip('系统托盘');
+  /** 创建托盘右键菜单trayMenu */
+  const trayMenu = Menu.buildFromTemplate([{ label: 'Item1', type: 'radio' }]);
 
-    tray.setContextMenu(trayMenu);
+  tray.setToolTip('系统托盘');
+
+  tray.setContextMenu(trayMenu);
 }
 
-export { initTray }
+export { initTray };
