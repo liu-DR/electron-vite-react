@@ -1,9 +1,9 @@
 /** 创建系统托盘 new Tray(icon) */
 import { Tray, Menu } from 'electron';
+import type { Tray as TrayType } from 'electron';
 import { resolve } from 'path';
-import { mainWindow } from '../main';
 
-let tray = null;
+let tray: TrayType | null = null;
 /** 托盘图标 */
 const trayIcon = resolve(__dirname, '../../public/trayIcon.jpg');
 
