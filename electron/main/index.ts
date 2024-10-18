@@ -3,7 +3,8 @@ import {
 	BrowserWindow,
 	shell,
 	Menu,
-	globalShortcut
+	globalShortcut,
+	ipcMain
 } from 'electron'
 import { join, resolve } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
@@ -30,31 +31,44 @@ function createWindow(): void {
 
 	global.mainWindow = mainWindow
 
-	// ctrl + F12 打开控制台
-	globalShortcut.register('CommandOrControl+F12', () => {
-		const currentWindow = BrowserWindow.getFocusedWindow();
-		if(currentWindow) {
-			currentWindow.webContents.toggleDevTools()
-		}
-	})
+  // F12 打开控制台
+  globalShortcut.register('F12', () => {
+    /** 生产环境不允许打开控制台 */
+    if (app.isPackaged) return;
+    const currentWindow = BrowserWindow.getFocusedWindow();
+    if (currentWindow) {
+      currentWindow.webContents.toggleDevTools();
+    }
+  });
 
-	// 最大化打开窗口
-	mainWindow.on('ready-to-show', () => {
-		if(!mainWindow) {
-			throw new Error('"mainWindow" is not defined');
-		}
-		if(process.env.START_MINIMIZED) {
-			mainWindow.minimize();
-		} else {
-			// mainWindow.maximize();	// 暂时无需最大化打开窗口
-			mainWindow.show();
-		}
-	})
+  /** 窗口准备好后执行 */
+  mainWindow.on('ready-to-show', () => {
+    if (!mainWindow) {
+      throw new Error('"mainWindow" is not defined');
+    }
+    if (process.env.START_MINIMIZED) {
+      mainWindow.minimize();
+    } else {
+      // 最大化打开窗口
+      // mainWindow.maximize();	// 暂时无需最大化打开窗口
+      mainWindow.show();
+    }
 
-	mainWindow.webContents.setWindowOpenHandler((details) => {
-		shell.openExternal(details.url)
-		return { action: 'deny' }
-	})
+    /** 开发环境启动时默认打开控制台 */
+    if (!app.isPackaged) {
+      mainWindow.webContents.toggleDevTools();
+    }
+  });
+
+  /** 监听渲染进程通信 */
+  ipcMain.on('toMain', (event, args) => {
+    mainWindow.webContents.send('toRender', '2222222');
+  });
+
+  /** 最小化窗口 */
+  ipcMain.on('setMinWindow', () => {
+    mainWindow.minimize();
+  });
 
 	if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
 		mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'])
