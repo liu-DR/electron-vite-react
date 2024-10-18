@@ -1,16 +1,16 @@
 {
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    // 每次保存将代码按照eslint格式进行修复
+    "source.fixAll.eslint": "always"
   },
+  // 按照prettier风格格式代码
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.requireConfig": true,
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "[json]": {
+  "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "less.compile": {
-    "compress": true, // 是否删除多余空白字符
-    "sourceMap": false, // 是否创建文件目录树，true的话会自动生成一个 .css.map 文件
-    "out": false, // 是否编译输出文件
   }
 }

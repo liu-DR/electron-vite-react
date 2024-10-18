@@ -4,3 +4,12 @@ pnpm-lock.yaml
 LICENSE.md
 tsconfig.json
 tsconfig.*.json
+node_modules
+.prettierrc
+**/*.config.ts
+**/*.yml
+**/*.config.mjs
+**/*.json
+**/*.d.ts
+**/*.css
+**/*.less

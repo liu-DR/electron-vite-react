@@ -1,29 +1,36 @@
 {
-  "files": [],
-  "references": [{ "path": "./tsconfig.node.json" }, { "path": "./tsconfig.web.json" }],
   "compilerOptions": {
-    "target": "ESNext",
-    "lib": ["DOM", "ESNext", "DOM.Iterable"],
-    "module": "ESNext",
-    "skipLibCheck": false,
-    "allowJs": false,
+    "target": "esnext",
+    "module": "esnext",
+    "lib": ["dom", "esnext", "dom.Iterable"],
+    "strict": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": false,
+    "moduleResolution": "Node",
+    "baseUrl": "./",
+    "jsx": "react-jsx",
+    "sourceMap": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "allowJs": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "resolveJsonModule": false,
-    "moduleResolution": "Node",
     "isolatedModules": true,
-    "jsx": "react-jsx",
-    "noImplicitAny": false,
-    "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],
       "@renderer/*": [
         "src/*"
-      ]
+      ],
+      "@@/*": ["electron/*"]
     },
-    "skipDefaultLibCheck": true,
-  }
+  },
+  "include": [
+    "**/*.tsx",
+    "**/*.jsx",
+    "**/*.ts",
+    "**/*.js",
+    "src/typings/*.d.ts",
+    "src/typings/global.d.ts"
+  ],
+  "exclude": ["node_modules", "build", "out"],
 }
