@@ -35,8 +35,8 @@ function createWindow(): void {
 
   globalContent.mainWindow = mainWindow;
 
-  // ctrl + F12 打开控制台
-  globalShortcut.register('CommandOrControl+F12', () => {
+  // F12 打开控制台
+  globalShortcut.register('F12', () => {
     /** 生产环境不允许打开控制台 */
     if (app.isPackaged) return;
     const currentWindow = BrowserWindow.getFocusedWindow();
@@ -66,7 +66,6 @@ function createWindow(): void {
 
   /** 监听渲染进程通信 */
   ipcMain.on('toMain', (event, args) => {
-    console.log('Received message from renderer:', args);
     mainWindow.webContents.send('toRender', '2222222');
   });
 
