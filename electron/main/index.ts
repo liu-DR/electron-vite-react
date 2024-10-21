@@ -11,11 +11,31 @@ import { join, resolve } from 'path';
 import { electronApp, optimizer, is } from '@electron-toolkit/utils';
 import MenuItem from './menu';
 import { initTray } from '../preload/systemTray';
+import { loadUrl, destoryApp } from '../utils';
+
+import { globalContentType } from '../utils/interface';
 
 let mainWindow: BrowserWindowType;
-let globalContent: any = global;
+let globalContent: globalContentType & typeof globalThis = global;
 
-function createWindow(): void {
+function ipcMainEvent() {
+  /** 监听渲染进程通信 */
+  ipcMain.on('toMain', (event, arg) => {
+    mainWindow.webContents.send('toRender', arg);
+  });
+
+  /** 最小化窗口 */
+  ipcMain.on('setMinWindow', () => {
+    mainWindow.minimize();
+  });
+
+  /** 关闭窗口 */
+  ipcMain.on('destoryWindow', () => {
+    destoryApp(globalContent);
+  });
+}
+
+async function createWindow(): Promise<void> {
   mainWindow = new BrowserWindow({
     width: 1280,
     height: 700,
@@ -33,7 +53,11 @@ function createWindow(): void {
     },
   });
 
-  globalContent.mainWindow = mainWindow;
+  const url = await loadUrl();
+
+  globalContent.hostUrl = url;
+
+  mainWindow.loadURL(url);
 
   // F12 打开控制台
   globalShortcut.register('F12', () => {
@@ -50,6 +74,9 @@ function createWindow(): void {
     if (!mainWindow) {
       throw new Error('"mainWindow" is not defined');
     }
+
+    globalContent.mainWindow = mainWindow;
+
     if (process.env.START_MINIMIZED) {
       mainWindow.minimize();
     } else {
@@ -62,23 +89,18 @@ function createWindow(): void {
     if (!app.isPackaged) {
       mainWindow.webContents.toggleDevTools();
     }
+
+    ipcMainEvent();
+
+    if (!globalContent.systemTray) {
+      /** 创建系统托盘需要再应用记载之后 */
+      initTray(globalContent);
+    }
   });
 
-  /** 监听渲染进程通信 */
-  ipcMain.on('toMain', (event, args) => {
-    mainWindow.webContents.send('toRender', '2222222');
+  mainWindow.on('close', (event) => {
+    destoryApp(globalContent);
   });
-
-  /** 最小化窗口 */
-  ipcMain.on('setMinWindow', () => {
-    mainWindow.minimize();
-  });
-
-  if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
-    mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL']);
-  } else {
-    mainWindow.loadFile(join(__dirname, '../../index.html'));
-  }
 }
 
 app.whenReady().then(() => {
@@ -88,9 +110,6 @@ app.whenReady().then(() => {
   });
 
   createWindow();
-
-  /** 创建系统托盘需要再应用记载之后 */
-  initTray();
 
   /** 单击应用图标时，如果没有创建窗口时，重新创建一个窗口 */
   app.on('activate', function () {

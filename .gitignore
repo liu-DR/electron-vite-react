@@ -1,5 +1,8 @@
-node_modules
-dist
-out
+/node_modules
+node_modules.**
+/dist
+dist.*
+/out
+out.*
 *.log*
-package-lock.json
+/package-lock.json
