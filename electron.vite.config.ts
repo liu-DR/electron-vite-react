@@ -1,6 +1,6 @@
-import path from 'path'
 import { defineConfig, externalizeDepsPlugin } from 'electron-vite'
-import react from '@vitejs/plugin-react'
+import react from '@vitejs/plugin-react';
+import path from 'path';
 
 export default defineConfig({
   main: {
@@ -9,7 +9,8 @@ export default defineConfig({
       rollupOptions: {
         input: {
           index: path.resolve(__dirname, 'electron/main/index.ts')
-        }
+        },
+        logLevel: 'info'
       }
     }
   },
@@ -19,7 +20,8 @@ export default defineConfig({
       rollupOptions: {
         input: {
           index: path.resolve(__dirname, 'electron/preload/index.ts')
-        }
+        },
+        logLevel: 'info'
       }
     }
   },
@@ -37,12 +39,13 @@ export default defineConfig({
       rollupOptions: {
         input: {
           index: path.resolve(__dirname, 'index.html')
-        }
+        },
+        logLevel: 'info'
       },
       terserOptions: {
         compress: {
-          drop_console: false,
-          drop_debugger: false
+          drop_console: true,
+          drop_debugger: true
         }
       }
     },

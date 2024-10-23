@@ -1,11 +1,11 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import reactRefresh from '@vitejs/plugin-react-refresh'
-import path from 'path'
-import fs from 'fs'
+const path = require('path');
+const fs = require('fs');
 
 const lessResources: Array<String> = []
-fs.readdirSync('src/assets/styles').map((dirname) => {
+fs.readdirSync('src/assets/styles').map((dirname: string) => {
   if (fs.statSync(`src/assets/styles/${dirname}`).isFile()) {
     lessResources.push(`@import "src/assets/styles/${dirname}";`)
   }
