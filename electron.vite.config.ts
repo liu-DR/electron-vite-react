@@ -1,4 +1,4 @@
-import { defineConfig, externalizeDepsPlugin } from 'electron-vite'
+import { defineConfig, externalizeDepsPlugin } from 'electron-vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 
@@ -10,7 +10,6 @@ export default defineConfig({
         input: {
           index: path.resolve(__dirname, 'electron/main/index.ts')
         },
-        logLevel: 'info'
       }
     }
   },
@@ -21,7 +20,6 @@ export default defineConfig({
         input: {
           index: path.resolve(__dirname, 'electron/preload/index.ts')
         },
-        logLevel: 'info'
       }
     }
   },
