@@ -1,5 +1,6 @@
 import { HashRouter } from 'react-router-dom';
-import Route from '../src/layout';
+import Route from '@/routes';
+// import Route from '@/layout';
 
 function App() {
   return (

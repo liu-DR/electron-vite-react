@@ -1,7 +1,10 @@
-html,
-body {
-  display: flex;
-  flex-direction: column;
+* {
+  padding: 0;
+  margin: 0;
+}
+
+html, body, #root {
+  width: 100vw;
   height: 100vh;
   font-family:
     Roboto,
@@ -14,208 +17,32 @@ body {
     'Cantarell',
     'Open Sans',
     sans-serif;
-  /* color: #86a5b1; */
-  /* background-color: #2f3241; */
-  height: 100vh;
-  width: 100vw;
-}
+};
 
-* {
-  padding: 0;
-  margin: 0;
-}
-
-ul {
+ul, li, ol {
   list-style: none;
-}
-
-code {
-  font-weight: 600;
-  padding: 3px 5px;
-  border-radius: 2px;
-  background-color: #26282e;
-  font-family:
-    ui-monospace,
-    SFMono-Regular,
-    SF Mono,
-    Menlo,
-    Consolas,
-    Liberation Mono,
-    monospace;
-  font-size: 85%;
-}
+};
 
 a {
-  color: #9feaf9;
-  font-weight: 600;
-  cursor: pointer;
   text-decoration: none;
-  outline: none;
+};
+
+select, input {
+  vertical-align: middle;
 }
 
-a:hover {
-  border-bottom: 1px solid;
+html, body, ul, li, ol, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, fieldset, legend, img, input {
+  margin: 0;
+  padding: 0;
 }
 
-.container {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  max-width: 840px;
-  margin: 0 auto;
-  padding: 15px 30px 0 30px;
-}
-
-.versions {
-  margin: 0 auto;
-  float: none;
-  clear: both;
-  overflow: hidden;
-  font-family: 'Menlo', 'Lucida Console', monospace;
-  color: #c2f5ff;
-  line-height: 1;
-  transition: all 0.3s;
-}
-
-.versions li {
-  display: block;
-  float: left;
-  border-right: 1px solid rgba(194, 245, 255, 0.4);
-  padding: 0 20px;
-  font-size: 13px;
-  opacity: 0.8;
-}
-
-.versions li:last-child {
-  border: none;
-}
-
-.hero-logo {
-  margin-top: -0.4rem;
-  transition: all 0.3s;
-}
-
-@media (max-width: 840px) {
-  .versions {
-    display: none;
-  }
-
-  .hero-logo {
-    margin-top: -1.5rem;
-  }
-}
-
-.hero-text {
-  font-weight: 400;
-  color: #c2f5ff;
-  text-align: center;
-  margin-top: -0.5rem;
-  margin-bottom: 10px;
-}
-
-@media (max-width: 660px) {
-  .hero-logo {
-    display: none;
-  }
-
-  .hero-text {
-    margin-top: 20px;
-  }
-}
-
-.hero-tagline {
-  text-align: center;
-  margin-bottom: 14px;
-}
-
-.links {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 24px;
-  font-size: 18px;
-  font-weight: 500;
-}
-
-.links a {
-  font-weight: 500;
-}
-
-.links .link-item {
-  padding: 0 4px;
-}
-
-.features {
-  display: flex;
-  flex-wrap: wrap;
-  margin: -6px;
-}
-
-.features .feature-item {
-  width: 33.33%;
-  box-sizing: border-box;
-  padding: 6px;
-}
-
-.features article {
-  background-color: rgba(194, 245, 255, 0.1);
-  border-radius: 8px;
-  box-sizing: border-box;
-  padding: 12px;
-  height: 100%;
-}
-
-.features span {
-  color: #d4e8ef;
-  word-break: break-all;
-}
-
-.features .title {
-  font-size: 17px;
-  font-weight: 500;
-  color: #c2f5ff;
-  line-height: 22px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.features .detail {
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 22px;
-  margin-top: 6px;
-}
-
-@media (max-width: 660px) {
-  .features .feature-item {
-    width: 50%;
-  }
-}
-
-@media (max-width: 480px) {
-  .links {
-    flex-direction: column;
-    line-height: 32px;
-  }
-
-  .links .link-dot {
-    display: none;
-  }
-
-  .features .feature-item {
-    width: 100%;
-  }
-}
 
 /* 用于设置自定义可拖动区域 */
-#draggableArea {
+#container-draggableArea {
+  flex: 1;
   -webkit-app-region: drag;
-  background-color: bisque;
-  height: 64px;
-  width: 100vw;
-  position: fixed;
-  top: 0;
+  height: 100%;
+  background: burlywood;
 
   button {
     -webkit-app-region: no-drag;
@@ -225,4 +52,29 @@ a:hover {
     user-select: none;
     -webkit-app-region: drag;
   }
+}
+
+::-webkit-scrollbar {
+  width: 6px !important;
+  height: 6px !important;
+  overflow-y: auto;
+};
+
+::-webkit-scrollbar-track {
+  background-color: #fff !important;
+  border-radius: 0;
+  box-shadow: 0;
+}
+
+/* 定义滑块 内阴影+圆角 */
+::-webkit-scrollbar-thumb {
+  background-color: #d8d8d8;
+  border-radius: 3px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+};
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
 }

@@ -1,16 +1,19 @@
-import { lazy } from 'react';
 import { routesType } from './data';
-
-const Home = lazy(() => import('../pages/Home'));
-const Login = lazy(() => import('../pages/Login'));
 
 export const routes: Array<routesType> = [
   {
     path: '/',
-    element: Home,
+    id: 'hello-page',
+    lazyPath: '../components/HelloPage',
+  },
+  {
+    path: '/home',
+    id: 'home',
+    lazyPath: '@/pages/Home',
   },
   {
     path: '/login',
-    element: Login,
+    id: 'login',
+    lazyPath: '@/pages/Login',
   },
 ];
