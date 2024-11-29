@@ -2,7 +2,7 @@ import React from 'react';
 
 export interface routesType {
   id: string;
-  lazyPath?: string;
+  lazyPath: string;
   /** 页面路由 */
   path?: string;
   /** 页面名称 */

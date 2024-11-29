@@ -1,6 +1,5 @@
 import { contextBridge, ipcRenderer, IpcRendererEvent, shell } from 'electron';
 
-
 /** 暴露主进程api给到渲染进程，用于渲染进程与主进程之间通信 */
 contextBridge.exposeInMainWorld('electron', {
   ipcRenderer: {
@@ -12,13 +11,14 @@ contextBridge.exposeInMainWorld('electron', {
       ipcRenderer.send(channel, args);
     },
     on(channel: string, func: (...args: unknown[]) => void) {
-      const subScription = (_event: IpcRendererEvent, ...args: unknown[]) => func(...args);
+      const subScription = (_event: IpcRendererEvent, ...args: unknown[]) =>
+        func(...args);
       ipcRenderer.on(channel, subScription);
 
       return ipcRenderer.removeListener(channel, subScription);
-    }
+    },
   },
-  shell
+  shell: shell,
 });
 
 /**
@@ -27,5 +27,13 @@ contextBridge.exposeInMainWorld('electron', {
  * 渲染进程中接受时，使用window.electronApi.onUpdateValue(callback)
  * */
 contextBridge.exposeInMainWorld('electronReturnVal', {
-  onUpdateValue: (callback: any) => ipcRenderer.on('toRender', (event, args) => callback(event, args))
-})
+  onUpdateValue: (callback: any) =>
+    ipcRenderer.on('toRender', (event, args) => callback(event, args)),
+});
+
+contextBridge.exposeInMainWorld('exampleApi', {
+  /** 窗口最大化状态 */
+  isMaximized: (callback: any) => {
+    ipcRenderer.on('maximized', (event, args) => callback(event, args));
+  },
+});

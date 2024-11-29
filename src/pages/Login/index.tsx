@@ -11,6 +11,7 @@ const Login = () => {
       console.log(event, args, 'event, args');
     });
   }, []);
+
   return (
     <div className="loginContain">
       <div id="draggableArea"></div>
@@ -18,6 +19,9 @@ const Login = () => {
       <h2>Electron React</h2>
       <Button type="primary" onClick={() => navigate('/home')}>
         前往首页
+      </Button>
+      <Button type="primary" onClick={() => navigate('/hello')}>
+        前往欢迎页
       </Button>
       <Button
         onClick={() => {
@@ -28,7 +32,17 @@ const Login = () => {
       </Button>
       <Button
         onClick={() => {
-          window.electron.ipcRenderer.sendMessage('setMinWindow', '最小化窗口');
+          window.electron.ipcRenderer.sendMessage(
+            'getMainWindow',
+            '测试通信111',
+          );
+        }}
+      >
+        实例化
+      </Button>
+      <Button
+        onClick={() => {
+          window.electron.ipcRenderer.sendMessage('switchWindowSize', 'min');
         }}
       >
         最小化

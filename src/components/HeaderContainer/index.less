@@ -1,6 +1,6 @@
 .header-container {
   position: fixed;
-  background: #58c6de;
+  background: #e1e7ec;
   top: 0;
   width: 100%;
   display: flex;
@@ -16,8 +16,30 @@
   .container-right {
     min-width: 20%;
     height: 100%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+
+    .right-system-edit {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      height: 100%;
+
+      .operation-icon {
+        width: 42px;
+        height: 100%;
+        text-align: center;
+        color: #868686;
+      }
+
+      .operation-icon:hover {
+        cursor: pointer;
+        background: #d0d6db;
+        color: #060606;
+      }
+
+      .close-icon:hover {
+        background: #e31221;
+        color: #fff;
+      }
+    }
   }
 }

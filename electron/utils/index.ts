@@ -27,9 +27,9 @@ export const destoryApp = (global: globalContentType) => {
     }
   }
 
+  global.systemTray?.destroy();
   global.mainWindow?.destroy();
   global.hostUrl = '';
-  global.systemTray = null;
 };
 
 /** 创建系统通知 */
@@ -37,8 +37,6 @@ export const createNotifica = (options: NotificationConstructorOptions) => {
   if (!options) {
     return;
   }
-  console.log(options, 'options');
-
   const notifica = new Notification(options);
   notifica.show();
 };

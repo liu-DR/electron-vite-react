@@ -10,8 +10,8 @@ export default defineConfig({
         input: {
           index: path.resolve(__dirname, 'electron/main/index.ts')
         },
-      }
-    }
+      },
+    },
   },
   preload: {
     plugins: [externalizeDepsPlugin()],
@@ -20,7 +20,7 @@ export default defineConfig({
         input: {
           index: path.resolve(__dirname, 'electron/preload/index.ts')
         },
-      }
+      },
     }
   },
   renderer: {
@@ -33,12 +33,10 @@ export default defineConfig({
       // open: true  // 是否自动打开浏览器
     },
     build: {
-      outDir: 'dist',
       rollupOptions: {
         input: {
           index: path.resolve(__dirname, 'index.html')
         },
-        logLevel: 'info'
       },
       terserOptions: {
         compress: {

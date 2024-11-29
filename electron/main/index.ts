@@ -24,14 +24,71 @@ function ipcMainEvent() {
     mainWindow.webContents.send('toRender', arg);
   });
 
-  /** 最小化窗口 */
-  ipcMain.on('setMinWindow', () => {
-    mainWindow.minimize();
+  /** 切换窗口大小窗口 */
+  ipcMain.on('switchWindowSize', (event, arg: string) => {
+    const isMaximized = globalContent.mainWindow?.isMaximized();
+
+    if (arg === 'min') {
+      mainWindow.minimize();
+      return;
+    }
+
+    if (arg === 'switch' && isMaximized) {
+      mainWindow.unmaximize();
+    } else {
+      mainWindow.maximize();
+    }
   });
 
   /** 关闭窗口 */
   ipcMain.on('destoryWindow', () => {
     destoryApp(globalContent);
+  });
+
+  ipcMain.on('getMainWindow', (event, arg) => {
+    const isMaximized = globalContent.mainWindow?.isMaximized();
+    mainWindow.webContents.send('mainWindow', isMaximized);
+  });
+}
+
+function monitorEvent() {
+  /** 窗口准备好后执行 */
+  mainWindow.on('ready-to-show', () => {
+    if (!mainWindow) {
+      throw new Error('"mainWindow" is not defined');
+    }
+
+    globalContent.mainWindow = mainWindow;
+
+    if (process.env.START_MINIMIZED) {
+      mainWindow.minimize();
+    } else {
+      mainWindow.show();
+    }
+
+    /** 开发环境启动时默认打开控制台 */
+    if (!app.isPackaged) {
+      mainWindow.webContents.openDevTools({ mode: 'right' });
+    }
+
+    ipcMainEvent();
+
+    if (!globalContent.systemTray) {
+      /** 创建系统托盘需要再应用记载之后 */
+      initTray(globalContent);
+    }
+  });
+
+  mainWindow.on('close', (event) => {
+    destoryApp(globalContent);
+  });
+
+  mainWindow.on('maximize', () => {
+    mainWindow.webContents.send('maximized', true);
+  });
+
+  mainWindow.on('unmaximize', () => {
+    mainWindow.webContents.send('maximized', false);
   });
 }
 
@@ -57,50 +114,23 @@ async function createWindow(): Promise<void> {
 
   globalContent.hostUrl = url;
 
-  mainWindow.loadURL(url);
+  if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
+    mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL']);
+  } else {
+    mainWindow.loadFile(join(__dirname, '../renderer/index.html'));
+  }
 
   // F12 打开控制台
   globalShortcut.register('F12', () => {
-    /** 生产环境不允许打开控制台 */
-    if (app.isPackaged) return;
-    const currentWindow = BrowserWindow.getFocusedWindow();
-    if (currentWindow) {
-      currentWindow.webContents.toggleDevTools();
-    }
-  });
-
-  /** 窗口准备好后执行 */
-  mainWindow.on('ready-to-show', () => {
-    if (!mainWindow) {
-      throw new Error('"mainWindow" is not defined');
-    }
-
-    globalContent.mainWindow = mainWindow;
-
-    if (process.env.START_MINIMIZED) {
-      mainWindow.minimize();
+    const isDevToolOpen = mainWindow.webContents.isDevToolsOpened();
+    if (isDevToolOpen) {
+      mainWindow.webContents.closeDevTools();
     } else {
-      // 最大化打开窗口
-      // mainWindow.maximize();	// 暂时无需最大化打开窗口
-      mainWindow.show();
-    }
-
-    /** 开发环境启动时默认打开控制台 */
-    if (!app.isPackaged) {
-      mainWindow.webContents.toggleDevTools();
-    }
-
-    ipcMainEvent();
-
-    if (!globalContent.systemTray) {
-      /** 创建系统托盘需要再应用记载之后 */
-      initTray(globalContent);
+      mainWindow.webContents.openDevTools({ mode: 'detach' });
     }
   });
 
-  mainWindow.on('close', (event) => {
-    destoryApp(globalContent);
-  });
+  monitorEvent();
 }
 
 app.whenReady().then(() => {
@@ -124,4 +154,4 @@ app.on('window-all-closed', () => {
   }
 });
 
-export { mainWindow };
+export { mainWindow, globalContent };

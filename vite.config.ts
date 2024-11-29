@@ -12,7 +12,7 @@ fs.readdirSync('src/assets/styles').map((dirname: string) => {
 })
 
 export default defineConfig({
-  base: './',
+  // base: './',
   server: {
     host: 'localhost',
     port: 8080,
