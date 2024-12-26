@@ -33,7 +33,7 @@ const HeaderContainer = () => {
 
   return (
     <div className="header-container">
-      <div className="container-left">left</div>
+      <div className="container-left">my-app</div>
       <div id="container-draggableArea" />
       <div className="container-right">
         <div className="right-system-edit">

@@ -94,8 +94,8 @@ function monitorEvent() {
 
 async function createWindow(): Promise<void> {
   mainWindow = new BrowserWindow({
-    width: 1280,
-    height: 700,
+    width: 1000,
+    height: 600,
     show: false,
     autoHideMenuBar: true,
     frame: false,

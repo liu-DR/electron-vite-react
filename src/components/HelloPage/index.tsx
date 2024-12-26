@@ -1,20 +1,24 @@
+import { useMemoizedFn } from 'ahooks';
 import './index.less';
-import { Button } from 'antd';
+import { Button, Space } from 'antd';
 import { useNavigate } from 'react-router-dom';
-
-import HeaderContainer from '@/components/HeaderContainer';
 
 const HelloPage = () => {
   const navigate = useNavigate();
 
+  const handleClick = useMemoizedFn(() => {
+    /** 打开子窗口 */
+  });
+
   return (
     <div className="hello-page">
-      <HeaderContainer />
-
       <div style={{ paddingTop: 42 }}>
-        <Button type="primary" onClick={() => navigate('/login')}>
-          登录页
-        </Button>
+        <Space>
+          <Button type="primary" onClick={() => navigate('/login')}>
+            登录页
+          </Button>
+          <Button onClick={handleClick}>掘金</Button>
+        </Space>
       </div>
     </div>
   );
