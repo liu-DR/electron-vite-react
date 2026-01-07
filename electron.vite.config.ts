@@ -5,26 +5,11 @@ import path from 'path';
 export default defineConfig({
   main: {
     plugins: [externalizeDepsPlugin()],
-    build: {
-      rollupOptions: {
-        input: {
-          index: path.resolve(__dirname, 'electron/main/index.ts')
-        },
-      },
-    },
   },
   preload: {
     plugins: [externalizeDepsPlugin()],
-    build: {
-      rollupOptions: {
-        input: {
-          index: path.resolve(__dirname, 'electron/preload/index.ts')
-        },
-      },
-    }
   },
   renderer: {
-    root: '.',
     server: {
       port: 9000,
       fs: {

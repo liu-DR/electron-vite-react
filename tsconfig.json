@@ -29,8 +29,8 @@
     "**/*.jsx",
     "**/*.ts",
     "**/*.js",
-    "src/typings/*.d.ts",
-    "src/typings/global.d.ts"
+    "src/renderer/src/typings/*.d.ts",
+    "src/renderer/src/typings/global.d.ts"
   ],
   "exclude": ["node_modules", "build", "out"],
 }
