@@ -7,9 +7,10 @@ import {
 import type { BrowserWindow as BrowserWindowType } from 'electron';
 import { join } from 'path';
 import { electronApp, optimizer, is } from '@electron-toolkit/utils';
-import { initTray, setupDockIcon } from './Common/systemTray';
+import { initTray, setupDockIcon } from './Common/tray';
 import { loadUrl, destoryApp } from '../utils';
 import { globalContentType } from '../utils/interface';
+import { setCustomMenu } from './Common/menus';
 
 import { getIconPath } from './utils';
 
@@ -69,6 +70,8 @@ function monitorEvent() {
     };
 
     mainWindow.setTitle('知识库');
+
+    setCustomMenu(mainWindow);
 
     ipcMainEvent();
   });
@@ -133,6 +136,7 @@ async function createWindow(): Promise<void> {
 
   mainWindow.once('ready-to-show', () => {
     mainWindow.show();
+    mainWindow.webContents.openDevTools();
   });
 }
 
@@ -143,7 +147,7 @@ app.whenReady().then(() => {
   });
 
   if (process.platform === 'darwin') {
-    setupDockIcon(globalContent);
+    setupDockIcon();
   } else {
     initTray(globalContent);
   }

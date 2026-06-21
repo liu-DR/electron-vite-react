@@ -43,7 +43,7 @@ const initTray = (global: globalContentType) => {
 };
 
 // 设置 Dock 图标（macOS 系统）
-const setupDockIcon = (global: globalContentType) => {
+const setupDockIcon = () => {
   // 4. 创建 Dock 菜单
   const dockMenu = Menu.buildFromTemplate([
     {
